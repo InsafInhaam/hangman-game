@@ -1,0 +1,14 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Ensure the base path is set correctly
+RewriteBase /hangman-game/
+
+# Redirect to remove index.php
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.php [NC]
+RewriteRule ^index\.php(.*)$ /$1 [R=301,L]
+
+# Rewrite any requests to index.php internally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
