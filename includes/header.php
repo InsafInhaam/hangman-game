@@ -38,6 +38,10 @@ $TEMPERDIR = "http://localhost/hangman-game/";
         <script src="scripts/wordlist.js" defer></script>
         <script src="scripts/script.js" defer></script>
     <?php endif; ?>
+    <?php if ($baseUrl == '/hangman-game/banana.php'): ?>
+    <script src="scripts/banana.js" defer></script>
+    <?php endif; ?>
+
 </head>
 <style>
     .language-buttons {

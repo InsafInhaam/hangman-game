@@ -12,7 +12,7 @@ body {
   /* align-items: center;
     justify-content: center; */
   /* min-height: 100vh; */
-  background: #5E63BA;
+  background: #ececec;
 }
 .hangman .container {
   display: flex;
@@ -192,4 +192,49 @@ body {
 
 .text-capitalize {
   text-transform: uppercase;
+}
+
+
+/* game-modal */
+
+.game-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+    text-align: center;
+    display: none;
+    height: 160px;
+}
+
+.game-modal.show {
+    display: block;
+}
+
+.modal-content h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.play-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.play-btn:hover {
+    background-color: #218838;
 }
