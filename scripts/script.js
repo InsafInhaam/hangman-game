@@ -86,9 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         (chancesData.timestamp - Date.now()) / 1000 / 60
       );
       document.querySelector(".game-modal").innerHTML = `
+      <div class="game-over-modal">
       <div class="modal-content">
           <h4>Come back in ${remainingTime} minutes or play the alternative game to reset your chances!</h4>
           <button class="play-btn" onclick="window.location.href='banana.php'">Play Alternative Game</button>
+      </div>
       </div>
   `;
       document.querySelector(".game-modal").classList.add("show");

@@ -53,13 +53,13 @@ if (isset($_SESSION['user_id'])) {
         margin-right: 0.5rem;
     }
 
-    .score-display {
+    .navbar .score-display {
         font-weight: bold;
         display: flex;
         align-items: center;
     }
 
-    .user-greeting {
+    .navbar .user-greeting {
         margin-left: auto;
         color: #fff;
         font-weight: bold;
@@ -67,7 +67,7 @@ if (isset($_SESSION['user_id'])) {
         right: 135px;
     }
 
-    .btn-logout {
+    .navbar .btn-logout {
         background-color: #e74c3c;
         color: white;
         padding: 0.5rem 1rem;
@@ -76,7 +76,7 @@ if (isset($_SESSION['user_id'])) {
         cursor: pointer;
     }
 
-    .btn-logout:hover {
+    .navbar .btn-logout:hover {
         background-color: #c0392b;
     }
 </style>

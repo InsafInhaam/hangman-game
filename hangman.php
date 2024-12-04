@@ -2,7 +2,7 @@
 <?php include_once './includes/navbar.php'; ?>
 
 <div class="hangman">
-<div class="game-modal">
+    <div class="game-modal">
         <div class="content">
             <img src="#" alt="gif">
             <h4>Game Over!</h4>

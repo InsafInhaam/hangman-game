@@ -59,11 +59,32 @@
   .link:hover {
     text-decoration: underline;
   }
+
+  .alert {
+    display: none;
+    /* Initially hidden */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
 </style>
 
 <div class="container" id="loginContainer">
   <h1>Login</h1>
-  <p id="loginMessage" class="alert alert-danger"></p>
+  <p id="loginMessage"></p>
   <input type="email" id="loginEmail" placeholder="Email" required>
   <input type="password" id="loginPassword" placeholder="Password" required>
   <button onclick="login()">Login</button>
@@ -72,7 +93,7 @@
 
 <div class="container" id="registerContainer" style="display: none;">
   <h1>Register</h1>
-  <p id="registerMessage" class="alert alert-danger"></p>
+  <p id="registerMessage"></p>
   <input type="text" id="registerName" placeholder="Name" required>
   <input type="email" id="registerEmail" placeholder="Email" required>
   <input type="password" id="registerPassword" placeholder="Password" required>
@@ -92,44 +113,52 @@
         : "none";
   }
 
+  function showMessage(element, message, type = "danger") {
+    element.textContent = message;
+    element.className = `alert alert-${type}`; // Set class based on type
+    element.style.display = "block"; // Show the message
+
+    // Hide the message after 3 seconds
+    setTimeout(() => {
+      element.style.display = "none";
+    }, 3000);
+  }
+
   function register() {
     const name = document.getElementById("registerName").value.trim();
     const email = document.getElementById("registerEmail").value.trim();
     const password = document.getElementById("registerPassword").value.trim();
     const messageEl = document.getElementById("registerMessage");
 
-    // Clear previous message
-    messageEl.textContent = "";
+    messageEl.style.display = "none"; // Hide message initially
 
-    // Validations
     if (!name || !email || !password) {
-      messageEl.textContent = "All fields are required!";
+      showMessage(messageEl, "All fields are required!", "danger");
       return;
     }
 
     if (!validateEmail(email)) {
-      messageEl.textContent = "Please enter a valid email address!";
+      showMessage(messageEl, "Please enter a valid email address!", "danger");
       return;
     }
 
     if (password.length < 6) {
-      messageEl.textContent = "Password must be at least 6 characters!";
+      showMessage(messageEl, "Password must be at least 6 characters!", "danger");
       return;
     }
 
-    // Fetch request
     fetch("function/auth.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `action=register&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        messageEl.textContent = data.message;
+      .then(response => response.json())
+      .then(data => {
+        showMessage(messageEl, data.message, data.status ? "success" : "danger");
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Error:", error);
-        messageEl.textContent = "An error occurred. Please try again.";
+        showMessage(messageEl, "An error occurred. Please try again.", "danger");
       });
   }
 
@@ -138,40 +167,38 @@
     const password = document.getElementById("loginPassword").value.trim();
     const messageEl = document.getElementById("loginMessage");
 
-    // Clear previous message
-    messageEl.textContent = "";
+    messageEl.style.display = "none"; // Hide message initially
 
-    // Validations
     if (!email || !password) {
-      messageEl.textContent = "All fields are required!";
+      showMessage(messageEl, "All fields are required!", "danger");
       return;
     }
 
     if (!validateEmail(email)) {
-      messageEl.textContent = "Please enter a valid email address!";
+      showMessage(messageEl, "Please enter a valid email address!", "danger");
       return;
     }
 
-    // Fetch request
     fetch("function/auth.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        messageEl.textContent = data.message;
-        if (data.success) {
-          window.location.href = "index.php"; // Redirect on success
+      .then(response => response.json())
+      .then(data => {
+        showMessage(messageEl, data.message, data.status ? "success" : "danger");
+        if (data.status) {
+          // setTimeout(() => {
+            window.location.href = "index.php";
+          // }, 1500); // Redirect after 1.5 seconds
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error("Error:", error);
-        messageEl.textContent = "An error occurred. Please try again.";
+        showMessage(messageEl, "An error occurred. Please try again.", "danger");
       });
   }
 
-  // Email validation function
   function validateEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);

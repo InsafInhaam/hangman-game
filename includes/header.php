@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : 'http';
