@@ -202,15 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initGame(e.target, String.fromCharCode(i))
     );
   }
-
-  const resetChances = () => {
-    localStorage.setItem(
-      "hangmanChances",
-      JSON.stringify({ chances: 3, timestamp: null })
-    );
-    alert("Your chances have been reset! You can now play Hangman again.");
-  };
-
+  
   getRandomWord();
   playAgainBtn.addEventListener("click", getRandomWord);
 });

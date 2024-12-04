@@ -1,6 +1,21 @@
 <?php include_once './includes/header.php'; ?>
 <?php include_once './includes/navbar.php'; ?>
 
+<style>
+    .language-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .language-buttons button {
+        margin: 10px;
+        padding: 15px 30px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-12">

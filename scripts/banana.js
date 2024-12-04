@@ -31,6 +31,7 @@ function checkText() {
       // alert("Text matches!");
       console.log("Text matches!");
     //   refillHeartInUser();
+    resetChances()
     } else {
       console.log("Text does not match!");
     //   redirectToIndexPage();
@@ -52,6 +53,15 @@ function gameOver() {
   alert("Game Over!");
   redirectToIndexPage();
 }
+
+const resetChances = () => {
+  localStorage.setItem(
+    "hangmanChances",
+    JSON.stringify({ chances: 3, timestamp: null })
+  );
+  alert("Your chances have been reset! You can now play Hangman again.");
+};
+
 
 // function refillHeartInUser() {
 //   $.post(
