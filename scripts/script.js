@@ -50,36 +50,33 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const initChances = () => {
-    let chancesData = JSON.parse(localStorage.getItem("hangmanChances"));
+    let chancesData = JSON.parse(localStorage.getItem("hangmanChances")) || {
+      chances: 3,
+      timestamp: null,
+    };
 
-    if (
-      !chancesData ||
-      !chancesData.timestamp ||
-      Date.now() > chancesData.timestamp
-    ) {
-      // Reset chances if 24 hours have passed
+    // Check if 24 hours have passed
+    if (chancesData.timestamp && Date.now() > chancesData.timestamp) {
       chancesData = { chances: 3, timestamp: null };
-      localStorage.setItem("hangmanChances", JSON.stringify(chancesData));
     }
+
+    localStorage.setItem("hangmanChances", JSON.stringify(chancesData));
   };
 
   const updateChances = () => {
     let chancesData = JSON.parse(localStorage.getItem("hangmanChances"));
+
     chancesData.chances--;
 
     if (chancesData.chances <= 0) {
-      // Set 24-hour cooldown
-      chancesData.timestamp = Date.now() + 24 * 60 * 60 * 1000;
+      chancesData.timestamp = Date.now() + 24 * 60 * 60 * 1000; // 24-hour cooldown
     }
 
     localStorage.setItem("hangmanChances", JSON.stringify(chancesData));
   };
 
   const checkChances = () => {
-    const chancesData = JSON.parse(localStorage.getItem("hangmanChances")) || {
-      chances: 3,
-      timestamp: null,
-    };
+    const chancesData = JSON.parse(localStorage.getItem("hangmanChances"));
 
     if (chancesData.chances <= 0 && Date.now() < chancesData.timestamp) {
       const remainingTime = Math.ceil(
@@ -204,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initGame(e.target, String.fromCharCode(i))
     );
   }
-  
+
   getRandomWord();
   playAgainBtn.addEventListener("click", getRandomWord);
 });

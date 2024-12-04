@@ -219,7 +219,7 @@ body {
 }
 
 .game-modal.show {
-    display: block;
+    display: flex;
 }
 
 .game-over-modal .modal-content h4 {

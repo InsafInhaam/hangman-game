@@ -3,7 +3,7 @@
 <script>
     // Fetch Life Chances from Local Storage
     document.addEventListener('DOMContentLoaded', () => {
-        const lifeChances = JSON.parse(localStorage.getItem('hangmanChances'))?.chances || 3;
+        const lifeChances = JSON.parse(localStorage.getItem('hangmanChances'))?.chances;
         document.getElementById('lifeChances').textContent = lifeChances;
     });
 
